@@ -34,11 +34,13 @@ RUN BUILD_DEPS="make gcc g++ libc6-dev ruby-dev libffi-dev" \
                      libjemalloc1 \
                      liblz4-1 \
                      ruby \
+                     curl \
     && echo 'gem: --no-document' >> /etc/gemrc \
     && gem install --file Gemfile \
     && apt-get purge -y --auto-remove \
                      -o APT::AutoRemove::RecommendsImportant=false \
                      $BUILD_DEPS \
+    && curl -sL -o /etc/papertrail-bundle.pem https://papertrailapp.com/tools/papertrail-bundle.pem \
     && rm -rf /tmp/* \
               /var/lib/apt/lists/* \
               /usr/lib/ruby/gems/*/cache/*.gem \
